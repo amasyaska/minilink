@@ -1,16 +1,25 @@
 <html>
   <head>
+    <style> 
+      .jopa_popup {
+        font-size: 300px;
+      }
+    </style>
+    <script>
+      function print_jopa()
+      {
+        document.getElementsByTagName("body")[0].insertAdjacentHTML("afterbegin",
+        `<h1 class="jopa_popup">ЖОПА</h1>`)
+      }
+    </script>
     <title>Relay</title>
   </head>
   <body>
     <form>
       <input type='text'>
-      <input type='submit' value='shorten'>
+      <input class='1_cla$$' onclick='print_jopa()' type='button' value='shorten'>
     </form>
     <table>
-      {% for link in top_links %}
-        
-      {% endfor %}
     </table>
   </body>
 </html>
