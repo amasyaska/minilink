@@ -13,7 +13,7 @@ class CustomModelManager(models.Manager):
 
 class PopularLinksManager(models.Manager):
     def get_queryset(self) -> models.QuerySet:
-        return super().get_queryset().exclude(clicks=0).order_by('clicks')[:10]
+        return super().get_queryset().exclude(clicks=0).order_by('-clicks')[:10]
 
 
 class URL(models.Model):
@@ -23,7 +23,7 @@ class URL(models.Model):
 
     objects = CustomModelManager()
     popular = PopularLinksManager()
-    
+
     def __str__(self) -> str:
         return f'{self.long_url} shortened to {self.short_url}'
     
