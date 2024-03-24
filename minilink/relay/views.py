@@ -15,12 +15,15 @@ class CreateLink(APIView):
     def post(self, request):
         long_url = request.data['longUrl']
         try:
-            new_url = URL.objects.create(long_url=long_url)
+            while True:
+                new_url = URL.objects.create(long_url=long_url)
+                if len(URL.objects.filter(short_url=new_url.short_url)) == 1:
+                    break
             return Response({'short_url': new_url.short_url})
         except IntegrityError:
             url = URL.objects.get(long_url=long_url)
             return Response({'short_url': url.short_url})
-        
+
 
 class RedirectTo(APIView):
     def get(self, request, short_link):

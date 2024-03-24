@@ -1,13 +1,10 @@
 from django.db import models
-
-def url_hash(url: str):
-    from random import randint
-    return randint(1, 999_999)
+from .link_relay import convert_decimal_to_tetrasexagesimal
 
 
 class CustomModelManager(models.Manager):
     def create(self, **data):
-        data['short_url'] = url_hash(data['long_url'])
+        data['short_url'] = convert_decimal_to_tetrasexagesimal(data['long_url'])
         return super().create(**data)
 
 
