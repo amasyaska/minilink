@@ -6,4 +6,4 @@ class UrlSerializer(serializers.ModelSerializer):
     """class for serializing URL model to JSON"""
     class Meta:
         model = URL
-        fields = ['long_url', 'short_url', 'clicks']
+        fields = ['url', 'short', 'visits']
