@@ -14,8 +14,12 @@ class HomePage(APIView):
 class CreateLink(APIView):
     def post(self, request):
         long_url = request.data['longUrl']
+        # if certain long url already exists in db, return its short representation
+        # otherwie create new row in db with this url and its representation
         try:
             while True:
+                # loop to check collisions: if long url with this short representation
+                # already exists in db, then one more representation is generated
                 new_url = URL.objects.create(long_url=long_url)
                 if len(URL.objects.filter(short_url=new_url.short_url)) == 1:
                     break
