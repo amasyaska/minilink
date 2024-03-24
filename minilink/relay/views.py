@@ -15,8 +15,7 @@ class CreateLink(APIView):
     def post(self, request):
         long_url = request.data['longUrl']
         try:
-            new_url = URL(long_url=long_url)
-            new_url.save()
+            new_url = URL.objects.create(long_url=long_url)
             return Response({'short_url': new_url.short_url})
         except IntegrityError:
             url = URL.objects.get(long_url=long_url)
@@ -24,8 +23,8 @@ class CreateLink(APIView):
         
 
 class RedirectTo(APIView):
-    def get(self, request):
-        url = get_object_or_404(URL, short_url=request.data['shortUrl'])
+    def get(self, request, short_link):
+        url = get_object_or_404(URL, short_url=short_link)
         url.clicks += 1
         url.save()
         return redirect(url.long_url)
