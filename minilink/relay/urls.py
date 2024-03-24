@@ -1,8 +1,10 @@
-from django.urls import path
-from . import CreateLink
+from django.urls import path, re_path
+from . import views
 
 app_name = 'relay'
 
 urlpatterns = [
-    path('create/', CreateLink.as_view(), name='create'),
+    path('', views.HomePage.as_view(), name='home'),
+    path('create/', views.CreateLink.as_view(), name='create'),
+    re_path(r'.+', views.RedirectTo.as_view(), name='redirect'),
 ]
